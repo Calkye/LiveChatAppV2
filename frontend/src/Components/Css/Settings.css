@@ -1,0 +1,28 @@
+.btn-modal{ 
+  width: 2.3125rem; 
+  height: 2.3125rem; 
+  display: block;
+}
+
+.model, .overlay{ 
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+}
+
+.overlay{
+  background-color: rgba(49, 49, 49 0.8);
+}
+
+
+.modal-content{
+  background-color: white;
+  width: 550px;
+  height: 550px;
+  right: 5px ;
+  position: absolute;
+}
