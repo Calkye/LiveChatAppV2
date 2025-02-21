@@ -39,6 +39,10 @@ body {
   flex: 0.85;
   width: 100%;
   flex-direction: column;
+  height: 65rem;
+  overflow-y: scroll;
+  box-sizing: border-box;
+  padding-top: 3rem;
 }
 
 .SideBar-Container {

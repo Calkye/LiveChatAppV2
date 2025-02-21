@@ -7,31 +7,31 @@ const Messages = () => {
   const { ReceivedMessages, Message } = useContext(MessagesContext); 
 
   const receivedMessages = ReceivedMessages || []; 
-  const UserMessages = Message || []
+  const userMessages = Message || [];
+
   return (
     <div className="Center-Right">
       <div className="ReceivedMessages">
         {receivedMessages.map((message, index) => {
-         
           return (
             <UserInfo 
               key={index}
-               Username={"Reciever"}
-               Message={message}
-               IsMessage={true}
+              Username={"Reciever"}
+              Message={message}
+              IsMessage={true}
             />
           );
         })}
       </div>
       <div className="SentMessages">
         {
-          receivedMessages.map((message, index)=>{
-            return(
+          userMessages.map((message, index) => {
+            return (
               <UserInfo 
-              key={index}
-              Username={"User"}
-              Message={Message}
-              IsMessage={true}
+                key={index}
+                Username={"User"}
+                Message={message}
+                IsMessage={true}
               />
             )
           })
