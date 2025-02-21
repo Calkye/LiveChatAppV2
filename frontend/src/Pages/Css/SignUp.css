@@ -1,0 +1,110 @@
+body, html {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+}
+
+body {
+  background-color: var(--MainAppBackground);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Form-Wrapper {
+  position: relative;
+  width: 47.1875rem;
+  height: 46.375rem;
+  overflow: hidden; /* Ensure the background is clipped within this container */
+  border-radius: 1.2rem; /* Optional: Add border-radius if you want rounded corners */
+}
+
+.Background {
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  width: 25rem;
+  height: 55rem;
+  background-color: var(--MainButtonBackground);
+  transform: rotate(45deg);
+  z-index: -1; /* Keep the background behind the form */
+}
+
+.Form {
+  position: relative;
+  background-color: var(--SideBarBackground);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rem;
+  filter: drop-shadow(12px 12px 12px rgba(0, 0, 0, 0.6));
+}
+
+.Input-Container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  gap: 3.5rem;
+  flex: 1;
+}
+.Input-Container .input {
+  display: flex;
+  flex-direction: column;
+}
+.Input-Container .input input {
+  width: 32.5rem;
+  height: 3.625rem;
+  box-sizing: border-box;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 0.875rem;
+  padding-bottom: 0.875rem;
+  border-radius: 0.9375rem;
+  border-style: none;
+  background-color: var(--MainButtonBackground);
+}
+.Input-Container .input label {
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.Button-Container {
+  flex: 0.7;
+  display: flex;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 1rem;
+  box-sizing: border-box;
+  align-items: flex-start;
+}
+.Button-Container .Button {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.45rem;
+}
+.Button-Container .Button button {
+  background-color: var(--MainButtonBackground);
+  border: none;
+  padding-left: 1.6875rem;
+  padding-right: 1.6875rem;
+  padding-top: 0.5625rem;
+  padding-bottom: 0.5625rem;
+  border-radius: 0.9375rem;
+  width: 18.8125rem;
+  height: 3.625rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: white;
+}
+.Button-Container .Button h4 {
+  align-self: flex-start;
+  color: white;
+}/*# sourceMappingURL=SignUp.css.map */

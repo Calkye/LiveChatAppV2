@@ -3,6 +3,8 @@ import http from 'http';
 import { Server } from 'socket.io';
 
 import AddFriend from './src/io/routes/AddFriend.js';
+import HandleTyping from './src/io/routes/HandleTyping.js';
+
 
 const app = express(); 
 const server = http.createServer(app); 
@@ -17,7 +19,7 @@ const io = new Server(server, {
 
 // Setup Socket.io routes 
 AddFriend(io); 
-
+HandleTyping(io); 
 
 
 
