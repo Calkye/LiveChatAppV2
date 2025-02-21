@@ -1,77 +1,44 @@
 import './Css/Messages.css';
+import { useContext } from 'react';
+import { MessagesContext } from '../../ContextApi/MessagesContextApi.jsx';
+import UserInfo from '../UserInfo.jsx';
 
-import CallSVG from '../../../public/Call.svg';
-import VideoCallSVG from '../../../public/VideoCall.svg';
+const Messages = () => {
+  const { ReceivedMessages, Message } = useContext(MessagesContext); 
 
-
-const Messages = ()=>{
-  const SampleMessages = ["Hello", "This is sample data", "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet nostrum, vel et sequi corrupti dolor officiis veniam voluptas omnis vero neque iure voluptate expedita dignissimos autem, eos id iste est aut velit commodi exercitationem! Eligendi, quo dolorem, suscipit necessitatibus sit veniam maxime quae enim sunt nobis, quasi sed repudiandae. Sequi!"]; 
-  const ReceivedSampleMessages = ["Hi", "This is sample data", "test", "test123"]
-  return( 
-    <div className="Messages-Right">
-      <div className="Top-Container">
-          <div className="Top">
-            <div className="UserInfo-Right-Container">
-              <div className="UserInfo-Right">
-                <div className="Pfp-right"></div>
-                <h2>Username</h2>
-              </div>
-            </div>
-            <div className="Buttons-Container">
-              <div className="Buttons">
-              <img src={CallSVG}  className='Symbole' />
-              <img src={VideoCallSVG} className='Symbole' />
-              </div>
-            </div>
-          </div>
+  const receivedMessages = ReceivedMessages || []; 
+  const UserMessages = Message || []
+  return (
+    <div className="Center-Right">
+      <div className="ReceivedMessages">
+        {receivedMessages.map((message, index) => {
+         
+          return (
+            <UserInfo 
+              key={index}
+               Username={"Reciever"}
+               Message={message}
+               IsMessage={true}
+            />
+          );
+        })}
       </div>
-      <div className="Center-Container">
-        <div className="Center">
-          <div className="Received-Messages">
-            {
-              ReceivedSampleMessages.map((Message, index)=>{
-                return (
-                  <div key={index} className='Message-Container'>
-                    <div className='UserInfo-Message'>
-                      <div className='pfp-right'></div>
-                      <div className="User-Info">
-                        <h2>Username</h2>
-                        <div className='Message'>
-                          <h3>{Message}</h3>
-                        </div>
-                      </div>
-                      
-                    </div>
-                    
-                  </div>
-                )
-              })            }
-          </div>
-          <div className="Sent-Messages">
-            {
-              SampleMessages.map((Message, index)=>{
-                return (
-                  <div key={index} className='Message-Container'>
-                    <div className='UserInfo-Message'>
-                      <div className='pfp-right'></div>
-                      <div className="User-Info">
-                        <h2>Username</h2>
-                        <div className='Message'>
-                          <h3>{Message}</h3>
-                        </div>
-                      </div>
-                      
-                    </div>
-                    
-                  </div>
-                )
-              })
-            }
-          </div>
-        </div>
+      <div className="SentMessages">
+        {
+          receivedMessages.map((message, index)=>{
+            return(
+              <UserInfo 
+              key={index}
+              Username={"User"}
+              Message={Message}
+              IsMessage={true}
+              />
+            )
+          })
+        }
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Messages
+export default Messages;

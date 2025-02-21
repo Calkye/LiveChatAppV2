@@ -35,6 +35,7 @@ body {
 
 .Messages-Container {
   display: flex;
+  align-items: center;
   flex: 0.85;
   width: 100%;
   flex-direction: column;

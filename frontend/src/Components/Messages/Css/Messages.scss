@@ -1,146 +1,29 @@
-.Messages-Right{
+.Center-Right{ 
+  width: 95%;
   flex: 1;
+  max-height: 100%;
+  border-bottom: 2px solid;
+  border-color: var(--MainBorderColor);
   display: flex;
-  flex-direction: column;
-
-  .Top-Container{
-
-    flex: 0.15;
-    display: flex;
-    justify-content: center;
-    .Top{
-      flex: 0.95;
-      border-bottom: 2px solid;
-      border-color: var(--MainBorderColor);
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      box-sizing: border-box;
-      padding: 0.55rem;
-    }
-  }
 }
 
-.Buttons-Container{
-  display: flex;
-  align-items: center;
-  flex: 1;
-  justify-content: flex-end;
-}
-.UserInfo-Right{
+
+.ReceivedMessages{ 
+  flex: 0.35;
+  height: 100%;
+  border-right: 2px solid;
+  border-color: var(--MainBorderColor);
   display: flex;
   align-items: flex-end;
-  gap: 0.25rem;
-  h2{ 
-    color: white;
-  }
-}
-.Buttons{
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-}
-
-.Pfp-right{ 
-  width: 4rem;
-  height: 4rem;
-  background-color: white;
-  border-radius: 50%;
-}
-
-.Symbole{
-  width: 4rem;
-  height: 4rem;
-}
-
-// Center Messages 
-
-.Center-Container{
-  flex: 0.85;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-bottom: 0.55rem;
+  padding: 0.55rem;
   box-sizing: border-box;
-  .Center{
-    box-sizing: border-box;
-    flex: 1;
-    display: flex;
-    flex-direction: row;
-    width: 96%;
-    border-bottom: 2px solid;
-    border-color: var(--MainBorderColor);
-
-    .Received-Messages{ 
-      flex: 0.4;
-      width: fit-content;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      justify-content: flex-end;
-      gap: 1.2rem;
-      box-sizing: border-box;
-      padding-right: 1rem;
-      .Message-Container{
-        width: fit-content;
-        min-width: 15rem;
-      }
-    }
-
-    .Sent-Messages{
-      flex: 0.6;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      align-items: flex-start;
-      justify-content: flex-end;
-      border-left: 2px solid;
-      padding-left: 0.65rem;
-      padding-right: 0.65rem;
-      box-sizing: border-box;
-      border-color: var(--MainBorderColor);
-    }
-  }
 }
 
-
-
-.Message-Container{
-  padding-bottom: 0.55rem;
-  .UserInfo-Message{
-    display: flex;
-    background-color: var(--MainButtonBackground);
-    box-sizing: border-box;
-    padding: 0.45rem;
-    border-radius: 0.9375rem;
-    flex-direction: row;
-    .Message h3{
-      padding: 0;
-      margin: 0;
-      color: white;
-      margin-top: 2.5rem;
-    }
-
-    .User-Info{
-      display: flex;
-      position: relative;
-      flex-direction: column;
-      padding-left: 0.45rem;
-      h2{
-        padding: 0;
-        margin: 0;
-        color: white;
-        padding-left: 4rem;
-      }
-    }
-  }
-}
-.pfp-right{
-  position: absolute;
-  width: 4rem;
-  height: 4rem;
-  border-radius: 50%;
-  background-color: white;
+.SentMessages{
+  display: flex;
+  align-items: flex-end;
+  padding: 0.55rem;
+  box-sizing: border-box;
 }
 
 

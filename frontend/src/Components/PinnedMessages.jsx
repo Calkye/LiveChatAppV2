@@ -8,8 +8,8 @@ const PinnedMessages = ()=>{
       <div className="PinnedMessages">
         <h2>Pinned Messages</h2>
         <div className="Messages">
-        <UserInfo />
-        <UserInfo />
+        <UserInfo Username={"User1"} Message={"This is sample data"}/>
+        <UserInfo Username={"User2"} Message={"This is Sample data"}/>
 
         </div>
       </div>
