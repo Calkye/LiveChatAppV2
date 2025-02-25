@@ -1,42 +1,74 @@
 import ConnectToDb from "../../../Connection.js";
+import { ObjectId } from 'mongodb';
 
-const AddFriend = async(friend)=>{
-  const friendDb = await ConnectToDb("Friends"); 
-  const UserDb = await ConnectToDb("Users")
-  try{
-    const FriendUser = await UserDb.findOne({ 
-      username: friend
+const AddFriend = async (friend, clientUsername) => {
+  const friendDb = await ConnectToDb("Friends");
+  const UserDb = await ConnectToDb("Users");
+
+  try {
+    const ClientData = await UserDb.findOne({ 
+      username: clientUsername
     });
-    if(FriendUser){
-      // Checking to see if the Friend has data in the friends collection  
-      const FriendUserData = await friendDb.findOne({ 
-        _id: FriendUser._id
+    const friendAccountData = await  UserDb.findOne({
+      username: friend
+    }); 
+    if(ClientData && friendAccountData){
+      const ClientFriendDbData = await friendDb.findOne({
+        _id: ClientData._id
+      });
+      const FriendData = await friendDb.findOne({ 
+        _id: friendAccountData._id
       }); 
-      if(!FriendUserData){ 
-        // If not found then create a friend list for the user's friend and update it with the users friend request
-        const newFriendUserData = await friendDb.insertOne({ 
-          _id: FriendUser._id, 
-          friends: [],
-          requests: [friend]
-        }) 
-        return { Success: true, message: "Successfully sent request"}
-        
+      if(ClientFriendDbData && FriendData){
+        // In this case both have collections so just update the friends collection 
+        await friendDb.updateOne(
+          {_id: friendAccountData._id}, 
+          {$addToSet: {requests: clientUsername}}
+        )
+
+      }else if(ClientFriendDbData){ 
+        // Cient has collection but the friend doesn't so initalise the friend collection and update the requests 
+        await friendDb.updateOne(
+          {_id: friendAccountData._id }, 
+          {$addToSet: {requests: clientUsername}}
+        )
+      }else if(FriendData){ 
+        // Friend has collection but the client user doesn't so initalise the friend collection for the client  
+          await friendDb.insertOne({ 
+          _id: ClientData._id, 
+          friends: [], 
+          requests: [] 
+        }); 
+        await friendDb.updateOne(
+          {_id: friendAccountData._id,},
+          {$addToSet: {requests: clientUsername}}
+        )
+
+      }else{ 
+        // Both do not have friend collections, initalise both (:
+          await friendDb.insertOne({
+            _id: ClientData._id, 
+            friends: [], 
+            requests: []
+          });
+          await friendDb.insertOne({
+            _id: friendAccountData._id,  
+            friends: [], 
+            requests: [clientUsername]
+          });
       }
-      // If found send the friend request to the user 
-      const FriendsNewFriendData = await friendDb.updateOne(
-        {_id: FriendUser._id}, 
-        {$addToSet: {requests: friend}}
-      )
-      return { Success: true, message: 'Successfully sent request'}
+
+
+
 
     }else{ 
-      return { Success: false, message: "No user found"}
+      throw new Error("No username and friend username provided")
     }
 
-    
-  }catch(error){ 
-    console.log(error.message); 
-    return new Error(error.message); 
+
+  } catch (error) {
+    console.log('Error while adding friend:', error.message);
+    return { Success: false, message: error.message };
   }
 }
 

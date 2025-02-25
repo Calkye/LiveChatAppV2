@@ -3,18 +3,20 @@ import axios from 'axios';
 axios.defaults.withCredentials = true; 
 
 class friend { 
-  constructor(friendUsername){ 
+  constructor(friendUsername, username){ 
     this.friendUsername = friendUsername;
+    this.username = username; 
   }
-
+  
   async AddFriend(){  
     try {
-      await axios.post('http://localhost:3000/Friends/Add', {
-        data: {
-          friendUsername: this.friendUsername
-        }
+      const response = await axios.post('http://localhost:3000/Friends/Add', {
+        friendUsername: this.friendUsername,
+        clientUsername: this.username,
+
       }, {withCredentials: true});
 
+      console.log("response from the server: ", response); 
       return { Success: true };
     } catch (error) {
       console.error('Error from adding friend: ', error.message);

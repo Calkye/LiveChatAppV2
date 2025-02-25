@@ -1,8 +1,11 @@
 import { createContext, useState, useEffect } from "react";
+import { useSessionStorage } from "usehooks-ts";
 
 import friend from "../Lib/Friend.js";
 
 export const FriendContext = createContext({ 
+  clientUsername: '', 
+  setClientUsername: ()=>{}, 
   friendUsernames: [''], 
   setFriendUsernames: ()=>{}, 
   addedUsernames: '', 
@@ -14,31 +17,25 @@ export const FriendContext = createContext({
 });
 
 export const FriendContextProvider = ({children})=>{
-  const [ friendUsernames, setFriendUsernames ] = useState(['']);
-  const [ addedUsernames, setAddedUsernames] = useState('');  
+  const [clientUsername, setClientUsername] = useSessionStorage("clientUsername", "'"); 
+  const [ friendUsernames, setFriendUsernames ] = useSessionStorage("friendUsernames", "");
+  const [ addedUsernames, setAddedUsernames] = useState("");  
   const [ Id, setId] = useState(['']); 
   const [pfp, setPfp] = useState(['']); 
 
-  useEffect(() => {
-    const addFriendAsync = async () => {
-      if (!addedUsernames) return; 
-  
-      const newFriend = new friend(addedUsernames);
-      const response = await newFriend.AddFriend();
-  
-      if (response?.Success) {
-        console.log('Successfully added friend from Context API');
-      } else {
-        console.log('Error occurred adding friend');
-      }
-    };
-  
-    addFriendAsync(); 
-  }, [addedUsernames]);
-  
+  useEffect(()=>{
+    console.log('Added usernames dependancy was updated')
+    const friendInstance = new friend(addedUsernames, clientUsername); 
+    const AysncRequest = async()=>{
+      const response = await friendInstance.AddFriend() 
+      console.log('Adding Friend: ', addedUsernames);
+      setAddedUsernames(''); 
+    }
+    AysncRequest(); 
+  }, [addedUsernames])
 
   return ( 
-    <FriendContext.Provider value={{friendUsernames, setFriendUsernames, addedUsernames, setAddedUsernames, Id, setId, pfp, setPfp}}>
+    <FriendContext.Provider value={{ clientUsername, setClientUsername, friendUsernames, setFriendUsernames, addedUsernames, setAddedUsernames, Id, setId, pfp, setPfp}}>
       {children}
     </FriendContext.Provider>
   )

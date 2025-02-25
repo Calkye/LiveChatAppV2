@@ -14,9 +14,9 @@ const AccountRoute = express.Router();
 
 
 AccountRoute.use(rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5, // limit each IP to 5 requests per window
-  message: 'Too many login attempts. Try again later.'
+  // windowMs: 15 * 60 * 1000, // 15 minutes
+  // max: 5, // limit each IP to 5 requests per window
+  // message: 'Too many login attempts. Try again later.'
 })); 
 
 AccountRoute.post('/Create', CreateTokens, async(req, res)=>{
@@ -38,7 +38,7 @@ AccountRoute.post('/Create', CreateTokens, async(req, res)=>{
   }
 })
 
-AccountRoute.post('/Login', VerifyTokens, async(req, res)=>{
+AccountRoute.post('/Login', CreateTokens, async(req, res)=>{
   const { username, password } = req.body.data; 
   try{
     const isVerified = await VerifyPasswords(username, password); 

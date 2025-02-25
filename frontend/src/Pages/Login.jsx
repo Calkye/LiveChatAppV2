@@ -2,6 +2,7 @@ import './Css/SignUp.css'
 
 import { useContext } from 'react';
 import { UserContext } from '../ContextApi/UserContextApi.jsx';
+import { FriendContext } from '../ContextApi/FriendContextApi.jsx';
 
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -9,22 +10,26 @@ import { Link, useNavigate } from 'react-router-dom';
 import User from '../Lib/User.js'; 
 
 const Login = () => {
-  const nagivate = useNavigate(); 
-  const { Username, setUsername, LoginStatus, setLoginStatus} = useContext(UserContext)
+  const navigate = useNavigate(); 
+  const { Username, setUsername, LoginStatus, setLoginStatus, password, setPassword} = useContext(UserContext)
+  const {clientUsername, setClientUsername } = useContext(FriendContext); 
 
   const [username, setTempUsername ] = useState(''); 
-  const [ password, setPassword ] = useState(''); 
+  const [ tempPassword, setTempPassword ] = useState(''); 
 
   const HandleLogin = async(e)=>{
     e.preventDefault(); 
-    const NewUser = new User(username, password); 
-    const isLoggedIn = NewUser.Login();
-    if(isLoggedIn.Success){ 
-      console.log('Logging in ');
-      setUsername(username); 
+    const user = new User(username, tempPassword); 
+    const isSuccess = await user.Login();
+    if(isSuccess.Success){ 
       setLoginStatus(true); 
-      nagivate('/MainApp', {replace: true})
-    }
+      setUsername(username); 
+      setClientUsername(username); 
+      setPassword(tempPassword); 
+      
+      navigate('/MainApp', {replace: true})
+
+    } 
     
   }
 
@@ -41,7 +46,7 @@ const Login = () => {
           </div>
           <div className="input">
             <label>Password</label>
-            <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
+            <input type="password" value={tempPassword} onChange={(e)=>setTempPassword(e.target.value)}/>
           </div>
         </div>
         <div className="Button-Container">

@@ -14,6 +14,7 @@ import VerifyTokens from './src/Modules/Jwt/VerifyTokens.js';
 // Import socket io routes 
 import AddFriend from './src/io/routes/AddFriend.js';
 import HandleTyping from './src/io/routes/HandleTyping.js';
+import GetRequests from './src/io/routes/GetRequests.js';
 
 // Import Express routes 
 import CreateAccountRoute from './src/express/Routes/CreateAccountRoute.js';
@@ -39,12 +40,17 @@ const io = new Server(server, {
   }
 }); 
 
+// Socket.io namespace 
+const friendsNameSpace = io.of('/friends'); 
+friendsNameSpace.on('connection', (socket)=>{
+  console.log(`User has connected to /friends namespace: ${socket.id}`); 
+  socket.on('request', (username)=>{
+  // Logic here
+    GetRequests(socket, username); 
+  })
+})
 
 
-
-// Setup Socket.io routes 
-AddFriend(io); 
-HandleTyping(io); 
 
 // Setup express routes
 app.use('/Users', CreateAccountRoute); 
@@ -54,11 +60,6 @@ app.use('/Friends', VerifyTokens, AddFriendRoute)
 // Setup the server
 const port = process.env.PORT || 3000; 
 
-io.on('connection', (socket)=>{
-  console.log(`A user has connected with the Id: ${socket.id}`)
-  socket.on('disconnect', ()=>{
-    console.log(`User: ${socket.id} has disconnected ending the session at ${new Date()}`); 
-  })
-})
+
 
 server.listen(port, ()=>console.log(`Server is runnning on http://localhost:${port}`)); 

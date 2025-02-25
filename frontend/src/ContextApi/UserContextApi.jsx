@@ -5,19 +5,20 @@ export const UserContext = createContext({
   Username: '', 
   setUsername: ()=>{}, 
   LoginStatus: false, 
-  setLoginStatus: ()=>{}
+  setLoginStatus: ()=>{},
+  password: '', 
+  setPassword: ()=>{}
 });
 
 
 export const UserContextProvider = ({children}) =>{
-  const [Username, setUsername ] = useSessionStorage("username", "")
-  const [LoginStatus, setLoginStatus ] = useSessionStorage("loginStatus", false); 
-  
- 
+  const [Username, setUsername ] = useSessionStorage("username", "");
+  const [ password, setPassword ] = useSessionStorage("password", ""); 
 
+  const [LoginStatus, setLoginStatus ] = useSessionStorage("loginStatus", false); 
 
   return (
-    <UserContext.Provider value={{Username, setUsername, LoginStatus, setLoginStatus}}>
+    <UserContext.Provider value={{Username, setUsername, LoginStatus, setLoginStatus, password, setPassword}}>
       {children}
     </UserContext.Provider>
   )
