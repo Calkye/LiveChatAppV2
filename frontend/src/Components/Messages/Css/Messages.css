@@ -4,13 +4,14 @@
   border-bottom: 2px solid;
   border-color: var(--MainBorderColor);
   display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
 }
 
 .ReceivedMessages {
   flex: 0.35;
   height: 100%;
-  border-right: 2px solid;
-  border-color: var(--MainBorderColor);
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;

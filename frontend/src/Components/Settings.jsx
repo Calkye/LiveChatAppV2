@@ -1,12 +1,25 @@
 import './Css/Settings.css'
 
-import { useState } from "react"
+import { useState, useContext } from "react"
+import { FriendContext } from '../ContextApi/FriendContextApi.jsx'
 
 import settings from '../../public/Settings.svg'
 
 const Settings = ()=>{
   const [ modal, setModal ] = useState(false); 
-  
+  const [ friendsModal, setFriendsModal] = useState(false); 
+  const { addedUsernames, setAddedUsernames } = useContext(FriendContext);   
+  const [ friendUsername, setFriendUsername ] = useState(''); 
+
+    const handleFriendsModel = ()=>{
+      setFriendsModal(!friendsModal); 
+    }
+    const HandleFriendRequests = ()=>{
+      setAddedUsernames(friendUsername); 
+
+    }
+
+
     const toggleModal = ()=>{
       setModal(!modal); 
     }
@@ -18,9 +31,30 @@ const Settings = ()=>{
         <div className="modal">
           <div className="overlay">
             <div className="modal-content">
-              <button className='Close-modal' onClick={toggleModal}>close</button>
-              <h5>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad ex ratione officia accusantium iure molestiae fugit corporis, inventore numquam vitae soluta quas facilis voluptas aspernatur deleniti consequatur ipsa error necessitatibus impedit. Laudantium neque, praesentium laboriosam, distinctio consequatur illum numquam assumenda odit ad exercitationem quam beatae consectetur provident? Voluptatibus, necessitatibus eaque!
-              </h5>
+              <div className="Settings">
+                <div className="Top">
+                  <img className='Close-modal' src={settings} alt="Settings" onClick={toggleModal}/>
+                </div>
+                <div className="Options">
+                  <ul>
+                    <li onClick={handleFriendsModel}>Add Friend</li>
+                    <li>Button</li>
+                    <li>Button</li>
+                    <li>Button</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="Content">
+                {
+                  friendsModal && (  
+                    <div className="Friends-Content-Container">
+                      <div className="Friends-Add">
+                        <input type="text" value={friendUsername} onChange={(e)=>setFriendUsername(e.target.value)}/><button onClick={HandleFriendRequests}>Add</button>
+                      </div>
+                    </div>
+                  )
+                }
+              </div>
             </div>
           </div>
         </div>

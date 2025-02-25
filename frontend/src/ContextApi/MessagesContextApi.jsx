@@ -1,5 +1,4 @@
 import {  createContext, useState, useEffect } from "react";
-import axios from "axios";
 
 
 
@@ -7,12 +6,12 @@ export const MessagesContext = createContext([
   {
     Message: [''], 
     setMessage: ()=>{}, 
-    UserId: '', 
-    setUserId: ()=>{},
+    Username: '', 
+    setUsername: ()=>{},
     ReceivedMessages: [''],
     setRecievedMessages: ()=>{}, 
-    RecieverId: '', 
-    SetRecieverId: ()=>{}
+    RecevierUsername: '', 
+    setReceiverUsername: ()=>{}
   }
 ]); 
 
@@ -20,10 +19,10 @@ export const MessagesContext = createContext([
 
 export const MessageContextProvider = ({children}) =>{
   const [Message, setMessage ] = useState(['test']); 
-  const [UserId, setUserId] = useState(''); 
+  const [Username, setUsername] = useState(''); 
 
   const [ReceivedMessages, setRecievedMessages ] = useState(['test']);
-  const [ReceiverId, SetRecieverId] = useState('')
+  const [RecevierUsername, setReceiverUsername] = useState('')
 
 
   // Request Update to backend 
@@ -48,7 +47,7 @@ export const MessageContextProvider = ({children}) =>{
 
 
   return(
-    <MessagesContext.Provider value={{Message, setMessage, UserId, setUserId, ReceivedMessages, setRecievedMessages, ReceiverId, SetRecieverId}}>
+    <MessagesContext.Provider value={{Message, setMessage, Username, setUsername, ReceivedMessages, setRecievedMessages, RecevierUsername, setReceiverUsername}}>
       {children}
     </MessagesContext.Provider>
   )
